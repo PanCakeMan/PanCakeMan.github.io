@@ -1,0 +1,55 @@
+---
+layout: archive
+title: "Publications"
+permalink: /publications/
+author_profile: true
+---
+
+{% if site.author.googlescholar %}
+<div class="wordwrap">You can also find my articles on <a href="https://scholar.google.com/citations?user=aMxBWxQAAAAJ&hl=en">my Google Scholar profile</a>.</div>
+{% endif %}
+
+{% include base_path %}
+
+<!-- New style rendering if publication categories are defined -->
+{% if site.publication_category %}
+{% for category in site.publication_category  %}
+{% assign title_shown = false %}
+{% for post in site.publications reversed %}
+{% if post.category != category[0] %}
+{% continue %}
+{% endif %}
+{% unless title_shown %}
+<h2>{{ category[1].title }}</h2><hr />
+{% assign title_shown = true %}
+{% endunless %}
+<div class="list__item">
+    <article class="archive__item">
+        <h3 class="archive__item-title">
+            <a href="{{ post.url | prepend: base_path }}">{{ post.title }}</a>
+        </h3>
+        <p class="page__meta" style="font-size: 1.1em;">
+            {% if post.authors %}<span class="page__meta">{{ post.authors }}</span><br />{% endif %}
+            <span class="page__date">{{ post.date | date: "%Y" }}</span>
+            {% if post.venue %}<span class="page__meta">{{ post.venue }}</span>{% endif %}
+        </p>
+    </article>
+</div>
+{% endfor %}
+{% endfor %}
+{% else %}
+{% for post in site.publications reversed %}
+<div class="list__item">
+    <article class="archive__item">
+        <h3 class="archive__item-title">
+            <a href="{{ post.url | prepend: base_path }}">{{ post.title }}</a>
+        </h3>
+        <p class="page__meta" style="font-size: 1.1em;">
+            {% if post.authors %}<span class="page__meta">{{ post.authors }}</span><br />{% endif %}
+            <span class="page__date">{{ post.date | date: "%Y" }}</span>
+            {% if post.venue %}<span class="page__meta">{{ post.venue }}</span>{% endif %}
+        </p>
+    </article>
+</div>
+{% endfor %}
+{% endif %}
